@@ -28,7 +28,6 @@ class AdminController {
         },
       });
     } else {
-      req.body.img = req.files.map((file) => file.path.replace(/\\/g, "/"));
       req.body.img = [
         req.files[0].path.split("\\").slice(2).join("/"),
         req.files[1].path.split("\\").slice(2).join("/"),
