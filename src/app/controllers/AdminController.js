@@ -17,7 +17,7 @@ class AdminController {
   // [POST] /admin/store
   store(req, res, next) {
     console.log(req.files.length);
-    if (req.files.length != 4) {
+    if (req.files.length !== 4) {
       return res.render("admin/create", {
         errorMessage: "Vui lòng tải lên 4 ảnh!",
         oldInput: {
@@ -28,12 +28,8 @@ class AdminController {
         },
       });
     } else {
-      req.body.img = [
-        req.files[0].path.split("\\").slice(2).join("/"),
-        req.files[1].path.split("\\").slice(2).join("/"),
-        req.files[2].path.split("\\").slice(2).join("/"),
-        req.files[3].path.split("\\").slice(2).join("/"),
-      ];
+      req.body.img = req.files.map((file) => file.path.replace(/\\/g, "/"));
+
       console.log(req.body);
       const product = new Product({
         product_type: req.body.product_type,
@@ -45,6 +41,7 @@ class AdminController {
         price: req.body.price,
         userId: req.user,
       });
+
       product
         .save()
         .then(() => res.redirect("/admin/stored/products"))
