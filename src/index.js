@@ -31,7 +31,7 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
-app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
+app.use(express.static(path.join(__dirname, "public", "uploads")));
 
 app.use(
   session({
