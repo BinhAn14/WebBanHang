@@ -34,6 +34,7 @@ class AdminController {
         req.files[2].path.split("\\").slice(2).join("/"),
         req.files[3].path.split("\\").slice(2).join("/"),
       ];
+      console.log(req.files);
       console.log(req.body);
       const product = new Product({
         product_type: req.body.product_type,
