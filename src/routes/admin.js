@@ -7,23 +7,15 @@ const isAuth = require("../app/middlewares/is-auth");
 const isAuthAdmin = require("../app/middlewares/is-auth-admin");
 
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (req, files, cb) {
     cb(null, "src/public/uploads");
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+  filename: function (req, files, cb) {
+    cb(null, Date.now() + files.originalname);
   },
 });
 
-var upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
-    if (!file.mimetype.startsWith("image/")) {
-      return cb(new Error("Only images are allowed!"), false);
-    }
-    cb(null, true);
-  },
-});
+var upload = multer({ storage: storage });
 
 router.get("/create", isAuth, isAuthAdmin, adminController.create);
 router.post(
