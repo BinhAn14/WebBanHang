@@ -61,13 +61,18 @@ class SiteController {
   getCart(req, res, next) {
     req.user.populate("cart.items.productId").then((user) => {
       console.log(user);
-      const products = user.cart.items;
-      let total = 0;
-      products.forEach((p) => {
-        total += p.quantity * p.productId.price;
-      });
+
+      // Lọc bỏ sản phẩm bị null
+      user.cart.items = user.cart.items.filter((p) => p.productId);
+
+      // Tính tổng giá trị giỏ hàng
+      let total = user.cart.items.reduce(
+        (sum, p) => sum + p.quantity * p.productId.price,
+        0
+      );
+
       res.render("cart", {
-        products: mutipleMongooseToObject(products),
+        products: mutipleMongooseToObject(user.cart.items),
         total: total,
       });
     });
