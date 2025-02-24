@@ -166,9 +166,9 @@ class SiteController {
 
   //[POST] /danh-gia
   postEvaluate(req, res, next) {
-    req.body.imgRating = req.files.map((file) =>
-      path.join("uploads", file.filename).replace(/\\/g, "/")
-    );
+    req.body.imgRating = req.files
+      .map((file) => path.join("uploads", file.filename).replace(/\\/g, "/"))
+      .join(",");
 
     console.log(req.body);
     const rating = new Rating({
