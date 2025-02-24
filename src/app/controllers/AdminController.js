@@ -2,6 +2,7 @@ const Product = require("../models/Product");
 const Story = require("../models/Story");
 const Order = require("../models/Order");
 const Rating = require("../models/Rating");
+const path = require("path");
 
 const ITEMS_PER_PAGE = 15;
 
@@ -28,12 +29,9 @@ class AdminController {
         },
       });
     } else {
-      req.body.img = [
-        req.files[0].path.split("\\").slice(2).join("/"),
-        req.files[1].path.split("\\").slice(2).join("/"),
-        req.files[2].path.split("\\").slice(2).join("/"),
-        req.files[3].path.split("\\").slice(2).join("/"),
-      ];
+      req.body.img = req.files.map((file) =>
+        path.join("uploads", file.filename).replace(/\\/g, "/")
+      );
       console.log(req.files);
       console.log(req.body);
       const product = new Product({
