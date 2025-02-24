@@ -174,10 +174,9 @@ class AdminController {
   }
 
   postNews(req, res, next) {
-    req.body.img = req.files.map((file) =>
+    req.body.imgStory = req.files.map((file) =>
       path.join("uploads", file.filename).replace(/\\/g, "/")
     );
-
     const story = new Story({
       title: req.body.title,
       content: req.body.content,
