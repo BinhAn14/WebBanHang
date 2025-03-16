@@ -15,4 +15,5 @@ router.get("/gia-vi", product_listController.show_giavi);
 router.get("/ngu-coc", product_listController.show_ngucoc);
 router.get("/sieu-thuc-pham", product_listController.show_sieuthucpham);
 router.get("/api/products", productListController.getAllProducts);
+router.get("/api/products/:type", product_listController.getProductsByType);
 module.exports = router;
