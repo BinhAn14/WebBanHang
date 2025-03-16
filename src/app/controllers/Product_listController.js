@@ -92,6 +92,17 @@ class Product_listController {
       })
       .catch(next);
   }
+  getAllProducts(req, res, next) {
+    Product.find({})
+      .then((products) => {
+        res.json({
+          success: true,
+          message: "All products fetched successfully",
+          data: mutipleMongooseToObject(products),
+        });
+      })
+      .catch(next);
+  }
 }
 
 module.exports = new Product_listController();
