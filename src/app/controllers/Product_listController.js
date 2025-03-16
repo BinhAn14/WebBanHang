@@ -1,3 +1,6 @@
+const Product = require("../models/Product");
+const { mutipleMongooseToObject } = require("../../util/mongoose");
+
 class Product_listController {
   show_raucu(req, res, next) {
     Product.find({ product_type: "rau củ" })
@@ -79,25 +82,96 @@ class Product_listController {
       .catch(next);
   }
 
-  // Hàm mới trả về dữ liệu API
-  getProductsByType(req, res, next) {
-    const productType = req.params.type; // Lấy type từ tham số URL
-    Product.find({ product_type: productType })
+  // API for rau cu
+  api_show_raucu(req, res, next) {
+    Product.find({ product_type: "rau củ" })
       .then((products) => {
         res.json({
           success: true,
-          message: "Products fetched successfully",
           data: mutipleMongooseToObject(products),
         });
       })
       .catch(next);
   }
-  getAllProducts(req, res, next) {
-    Product.find({})
+
+  // API for sinh to
+  api_show_sinhto(req, res, next) {
+    Product.find({ product_type: "sinh tố" })
       .then((products) => {
         res.json({
           success: true,
-          message: "All products fetched successfully",
+          data: mutipleMongooseToObject(products),
+        });
+      })
+      .catch(next);
+  }
+
+  // API for thuc pham tuoi song
+  api_show_thucphamtuoisong(req, res, next) {
+    Product.find({ product_type: "thực phẩm tươi sống" })
+      .then((products) => {
+        res.json({
+          success: true,
+          data: mutipleMongooseToObject(products),
+        });
+      })
+      .catch(next);
+  }
+
+  // API for hoa qua
+  api_show_hoaqua(req, res, next) {
+    Product.find({ product_type: "hoa quả" })
+      .then((products) => {
+        res.json({
+          success: true,
+          data: mutipleMongooseToObject(products),
+        });
+      })
+      .catch(next);
+  }
+
+  // API for cac loai hat
+  api_show_cacloaihat(req, res, next) {
+    Product.find({ product_type: "các loại hạt" })
+      .then((products) => {
+        res.json({
+          success: true,
+          data: mutipleMongooseToObject(products),
+        });
+      })
+      .catch(next);
+  }
+
+  // API for gia vi
+  api_show_giavi(req, res, next) {
+    Product.find({ product_type: "gia vị" })
+      .then((products) => {
+        res.json({
+          success: true,
+          data: mutipleMongooseToObject(products),
+        });
+      })
+      .catch(next);
+  }
+
+  // API for ngu coc
+  api_show_ngucoc(req, res, next) {
+    Product.find({ product_type: "ngũ cốc" })
+      .then((products) => {
+        res.json({
+          success: true,
+          data: mutipleMongooseToObject(products),
+        });
+      })
+      .catch(next);
+  }
+
+  // API for sieu thuc pham
+  api_show_sieuthucpham(req, res, next) {
+    Product.find({ product_type: "siêu thực phẩm" })
+      .then((products) => {
+        res.json({
+          success: true,
           data: mutipleMongooseToObject(products),
         });
       })
