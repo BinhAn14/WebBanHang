@@ -5,7 +5,7 @@ var methodOverride = require("method-override");
 const handlebars = require("express-handlebars");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
-
+const cors = require("cors");
 const flash = require("connect-flash");
 
 const SortMiddleware = require("./app/middlewares/sortMiddleware");
@@ -15,7 +15,13 @@ const route = require("./routes"); // tự nạp file index
 const db = require("./config/db");
 
 const app = express();
-
+app.use(
+  cors({
+    origin: "*", // Cho phép tất cả các nguồn truy cập. Có thể thay bằng địa chỉ cụ thể nếu cần bảo mật.
+    methods: ["GET", "POST", "PUT", "DELETE"], // Các phương thức được phép sử dụng
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 // Connect to DB
 db.connect()
   .then((result) => {
