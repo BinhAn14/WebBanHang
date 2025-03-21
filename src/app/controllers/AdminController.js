@@ -29,7 +29,9 @@ class AdminController {
         },
       });
     } else {
-      req.body.img = req.files.map((file) => `/uploads/${file.filename}`);
+      req.body.img = req.files.map((file) =>
+        path.join("uploads", file.filename).replace(/\\/g, "/")
+      );
       console.log(req.files);
       console.log(req.body);
       const product = new Product({
