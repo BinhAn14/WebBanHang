@@ -9,7 +9,6 @@ const { mutipleMongooseToObject } = require("../../util/mongoose");
 const { mongooseToObjiect } = require("../../util/mongoose");
 
 class SiteController {
-  //[GET] /search
   apiSearch(req, res, next) {
     const keyword = req.query.keyword;
     if (!keyword) {
@@ -19,12 +18,7 @@ class SiteController {
     }
 
     Product.find({
-      $text: {
-        $search: keyword,
-        $language: "none",
-        $diacriticSensitive: false,
-        $caseSensitive: false,
-      },
+      name: { $regex: keyword, $options: "i" },
     })
       .then((productsSearch) => {
         res.json({
@@ -36,13 +30,9 @@ class SiteController {
   }
 
   search(req, res, next) {
+    const keyword = req.query.keyword;
     Product.find({
-      $text: {
-        $search: req.query.keyword,
-        $language: "none",
-        $diacriticSensitive: false,
-        $caseSensitive: false,
-      },
+      name: { $regex: keyword, $options: "i" },
     })
       .then((productsSearch) => {
         res.render("search", {
