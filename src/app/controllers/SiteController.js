@@ -10,6 +10,31 @@ const { mongooseToObjiect } = require("../../util/mongoose");
 
 class SiteController {
   //[GET] /search
+  apiSearch(req, res, next) {
+    const keyword = req.query.keyword;
+    if (!keyword) {
+      return res
+        .status(400)
+        .json({ message: "Vui lòng nhập từ khóa tìm kiếm" });
+    }
+
+    Product.find({
+      $text: {
+        $search: keyword,
+        $language: "none",
+        $diacriticSensitive: false,
+        $caseSensitive: false,
+      },
+    })
+      .then((productsSearch) => {
+        res.json({
+          success: true,
+          data: productsSearch,
+        });
+      })
+      .catch(next);
+  }
+
   search(req, res, next) {
     Product.find({
       $text: {

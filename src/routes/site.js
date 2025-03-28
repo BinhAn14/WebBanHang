@@ -43,5 +43,5 @@ router.get("/tai-khoan", isAuth, siteController.showProfile);
 router.post("/tai-khoan", isAuth, siteController.postProfile);
 
 router.get("/", siteController.index);
-
+router.get("/api/search", siteController.apiSearch);
 module.exports = router;
