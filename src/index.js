@@ -17,12 +17,12 @@ const db = require("./config/db");
 const app = express();
 app.use(
   cors({
-    origin: "*", // Cho phép tất cả các nguồn truy cập. Có thể thay bằng địa chỉ cụ thể nếu cần bảo mật.
-    methods: ["GET", "POST", "PUT", "DELETE"], // Các phương thức được phép sử dụng
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-// Connect to DB
+
 db.connect()
   .then((result) => {
     const port = 3000;
